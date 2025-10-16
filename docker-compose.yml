@@ -1,0 +1,121 @@
+version: '3.8'
+
+services:
+  # Temporal server dependencies
+  postgresql:
+    container_name: research-agent-postgres
+    environment:
+      POSTGRES_PASSWORD: temporal
+      POSTGRES_USER: temporal
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U temporal"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis for session storage and caching
+  redis:
+    container_name: research-agent-redis
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  # Temporal server
+  temporal:
+    container_name: research-agent-temporal
+    image: temporalio/auto-setup:1.24.2
+    ports:
+      - "7233:7233"
+    environment:
+      - DB=postgres12
+      - DB_PORT=5432
+      - POSTGRES_USER=temporal
+      - POSTGRES_PWD=temporal
+      - POSTGRES_SEEDS=postgresql
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "tctl", "--address", "temporal:7233", "cluster", "health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Temporal Web UI
+  temporal-ui:
+    container_name: research-agent-temporal-ui
+    image: temporalio/ui:2.29.0
+    ports:
+      - "8080:8080"
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+      - TEMPORAL_CORS_ORIGINS=http://localhost:3000
+    depends_on:
+      temporal:
+        condition: service_healthy
+
+  # Python Temporal Worker
+  temporal-worker:
+    container_name: research-agent-worker
+    build:
+      context: ./temporal-worker
+      dockerfile: Dockerfile
+    environment:
+      - TEMPORAL_HOST=temporal:7233
+      - TEMPORAL_NAMESPACE=default
+      - TEMPORAL_TASK_QUEUE=research-agent-queue
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    depends_on:
+      temporal:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - ./temporal-worker/src:/app/src:ro
+      - worker_cache:/app/.venv
+    command: ["uv", "run", "worker"]
+
+  # Next.js Client
+  # temporal-client:
+  #   container_name: research-agent-client
+  #   build:
+  #     context: ./temporal-client
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     - TEMPORAL_SERVER_ADDRESS=temporal:7233
+  #     - TEMPORAL_NAMESPACE=default
+  #     - TEMPORAL_TASK_QUEUE=research-agent-queue
+  #     - NODE_ENV=development
+  #     - POSTGRES_URL=postgres://temporal:temporal@postgresql:5432/temporal
+  #     - REDIS_URL=redis://redis:6379
+  #   depends_on:
+  #     temporal:
+  #       condition: service_healthy
+  #   volumes:
+  #     - ./temporal-client/src:/app/src:ro
+  #     - ./temporal-client/public:/app/public:ro
+  #     - client_node_modules:/app/node_modules
+  #   command: ["bun", "dev"]
+
+volumes:
+  postgres_data:
+  redis_data:
+  worker_cache:
+  client_node_modules:
+
+networks:
+  default:
+    name: research-agent-network

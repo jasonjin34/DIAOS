@@ -192,14 +192,14 @@ export async function POST(request: Request) {
 
     // Check if this is a research request and start Temporal workflow
     const firstPart = message.parts?.[0];
-    const userText = (firstPart && 'text' in firstPart) ? firstPart.text : "";
+    const userText = firstPart && "text" in firstPart ? firstPart.text : "";
     const needsResearchWorkflow = isDeepResearchRequest(userText);
 
-    console.log('=== CHAT API REQUEST ANALYSIS ===');
-    console.log('User Text:', userText);
-    console.log('Needs Research Workflow:', needsResearchWorkflow);
-    console.log('Message Parts:', message.parts);
-    console.log('================================');
+    console.log("=== CHAT API REQUEST ANALYSIS ===");
+    console.log("User Text:", userText);
+    console.log("Needs Research Workflow:", needsResearchWorkflow);
+    console.log("Message Parts:", message.parts);
+    console.log("================================");
 
     let workflowInfo = "";
     let researchTopic = "";
@@ -207,33 +207,42 @@ export async function POST(request: Request) {
     let workflowId = "";
 
     if (needsResearchWorkflow) {
-      console.log('🔬 STARTING RESEARCH WORKFLOW PROCESS...');
+      console.log("🔬 STARTING RESEARCH WORKFLOW PROCESS...");
       try {
-        console.log('📡 Creating Temporal client connection...');
+        console.log("📡 Creating Temporal client connection...");
         // Create Temporal client with connection
-        const { Connection, Client } = await import('@temporalio/client');
+        const { Connection, Client } = await import("@temporalio/client");
         const connection = await Connection.connect({
-          address: process.env.TEMPORAL_SERVER_ADDRESS || 'localhost:7233',
+          address: process.env.TEMPORAL_SERVER_ADDRESS || "localhost:7233",
         });
-        console.log('✅ Temporal connection established');
-        
+        console.log("✅ Temporal connection established");
+
         const temporalClient = new Client({ connection });
-        
+
         workflowId = `research-${Date.now()}`;
-        console.log('🆔 Generated Workflow ID:', workflowId);
+        console.log("🆔 Generated Workflow ID:", workflowId);
 
         // Generate document ID and research topic
         documentId = generateUUID();
-        researchTopic = userText.replace(/^(deep research on|do research on|comprehensive research on)\s*/i, '').trim();
+        researchTopic = userText
+          .replace(
+            /^(deep research on|do research on|comprehensive research on)\s*/i,
+            ""
+          )
+          .trim();
 
         // Just start the workflow, completion will happen in streaming
-        console.log('🚀 Starting Temporal workflow...');
-        console.log('Workflow Args:', [userText, session.user.id || "anonymous", documentId]);
+        console.log("🚀 Starting Temporal workflow...");
+        console.log("Workflow Args:", [
+          userText,
+          session.user.id || "anonymous",
+          documentId,
+        ]);
 
-        console.log('📊 Research workflow info prepared:');
-        console.log('- Workflow ID:', workflowId);
-        console.log('- Document ID:', documentId);
-        console.log('- Research Topic:', researchTopic);
+        console.log("📊 Research workflow info prepared:");
+        console.log("- Workflow ID:", workflowId);
+        console.log("- Document ID:", documentId);
+        console.log("- Research Topic:", researchTopic);
       } catch (temporalError) {
         console.error("Failed to start Temporal workflow:", temporalError);
         workflowInfo =
@@ -243,27 +252,31 @@ export async function POST(request: Request) {
 
     // For research requests, return streaming response with workflow info only (no GPT generation)
     if (needsResearchWorkflow && workflowId) {
-      console.log('🚀 RESEARCH REQUEST - Creating streaming response with workflow info only');
-      console.log('- Workflow ID:', workflowId);
-      console.log('- Document ID:', documentId);
-      console.log('- Skipping GPT streamText() call entirely');
-      
+      console.log(
+        "🚀 RESEARCH REQUEST - Creating streaming response with workflow info only"
+      );
+      console.log("- Workflow ID:", workflowId);
+      console.log("- Document ID:", documentId);
+      console.log("- Skipping GPT streamText() call entirely");
+
       const streamId = generateUUID();
       await createStreamId({ streamId, chatId: id });
 
       // Create a streaming response that shows loading then final results
       const stream = createUIMessageStream({
         execute: async ({ writer: dataStream }) => {
-          console.log('📝 SENDING RESEARCH RESPONSE - Showing loading then results');
-          
+          console.log(
+            "📝 SENDING RESEARCH RESPONSE - Showing loading then results"
+          );
+
           const messageId = generateUUID();
-          
+
           // First show loading state
           dataStream.write({
             type: "text-start",
             id: messageId,
           });
-          
+
           const loadingMessage = `**Starting Deep Research on ${researchTopic}**
 
 I'm conducting comprehensive academic research using Temporal workflows. This may take 2-5 minutes.
@@ -282,35 +295,40 @@ Please wait while I complete the analysis...`;
             id: messageId,
             delta: loadingMessage,
           });
-          
+
           // NOW start and wait for the workflow (blocking inside stream)
           try {
             // Create Temporal client inside stream
-            const { Connection, Client } = await import('@temporalio/client');
+            const { Connection, Client } = await import("@temporalio/client");
             const connection = await Connection.connect({
-              address: process.env.TEMPORAL_SERVER_ADDRESS || 'localhost:7233',
+              address: process.env.TEMPORAL_SERVER_ADDRESS || "localhost:7233",
             });
             const temporalClient = new Client({ connection });
-            
-            const workflowHandle = await temporalClient.workflow.start("ResearchWorkflow", {
-              args: [userText, session.user.id || "anonymous", documentId],
-              taskQueue: "research-agent-queue",
-              workflowId,
-            });
-            
-            console.log('✅ Temporal workflow started successfully!');
-            console.log('⏳ Waiting for workflow to complete (this may take 2-5 minutes)...');
+
+            const workflowHandle = await temporalClient.workflow.start(
+              "ResearchWorkflow",
+              {
+                args: [userText, session.user.id || "anonymous", documentId],
+                taskQueue: "research-agent-queue",
+                workflowId,
+              }
+            );
+
+            console.log("✅ Temporal workflow started successfully!");
+            console.log(
+              "⏳ Waiting for workflow to complete (this may take 2-5 minutes)..."
+            );
 
             // WAIT for the workflow to complete (blocking)
             const workflowResult = await workflowHandle.result();
-            
-            console.log('🎉 Workflow completed! Result:', workflowResult);
+
+            console.log("🎉 Workflow completed! Result:", workflowResult);
 
             // Format the research results for display
             let finalResults;
             if (workflowResult.success && workflowResult.final_summary) {
               const stats = workflowResult.final_summary.research_stats || {};
-              
+
               finalResults = `
 
 # Deep Research: ${researchTopic}
@@ -321,7 +339,7 @@ Please wait while I complete the analysis...`;
 
 ## Research Summary
 
-${workflowResult.final_summary.summary || 'Research analysis completed successfully.'}
+${workflowResult.final_summary.summary || "Research analysis completed successfully."}
 
 ## Research Statistics
 - **Papers Discovered:** ${workflowResult.papers_discovered || 0}
@@ -346,24 +364,24 @@ Research workflow completed but encountered issues during processing.
 ---
 *Research powered by Temporal workflows*`;
             }
-            
+
             // Replace loading message with final results
             dataStream.write({
-              type: "text-delta", 
+              type: "text-delta",
               id: messageId,
               delta: finalResults,
             });
-            
           } catch (error) {
-            console.error('❌ Workflow execution failed:', error);
-            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            console.error("❌ Workflow execution failed:", error);
+            const errorMessage =
+              error instanceof Error ? error.message : "Unknown error";
             dataStream.write({
-              type: "text-delta", 
+              type: "text-delta",
               id: messageId,
               delta: `\n\n❌ **Research Failed**\n\nError: ${errorMessage}\n\nPlease try again.`,
             });
           }
-          
+
           dataStream.write({
             type: "text-end",
             id: messageId,
@@ -371,7 +389,7 @@ Research workflow completed but encountered issues during processing.
         },
         generateId: generateUUID,
         onFinish: async ({ messages }) => {
-          console.log('💾 SAVING WORKFLOW MESSAGE - Saving to database');
+          console.log("💾 SAVING WORKFLOW MESSAGE - Saving to database");
           await saveMessages({
             messages: messages.map((currentMessage) => ({
               id: currentMessage.id,
@@ -396,23 +414,25 @@ Research workflow completed but encountered issues during processing.
 
     let finalMergedUsage: AppUsage | undefined;
 
-    console.log('🎯 PREPARING GPT RESPONSE...');
-    console.log('Will use GPT for research workflow:', needsResearchWorkflow);
-    
+    console.log("🎯 PREPARING GPT RESPONSE...");
+    console.log("Will use GPT for research workflow:", needsResearchWorkflow);
+
     if (needsResearchWorkflow) {
-      console.log('⚠️ WARNING: GPT will generate content while Temporal is processing!');
-      console.log('System prompt will include:', {
+      console.log(
+        "⚠️ WARNING: GPT will generate content while Temporal is processing!"
+      );
+      console.log("System prompt will include:", {
         researchTopic,
         workflowId,
         documentId,
-        workflowInfo: workflowInfo.substring(0, 100) + '...'
+        workflowInfo: workflowInfo.substring(0, 100) + "...",
       });
     }
 
     const stream = createUIMessageStream({
       execute: ({ writer: dataStream }) => {
-        console.log('🚀 Starting GPT text generation...');
-        
+        console.log("🚀 Starting GPT text generation...");
+
         const result = streamText({
           model: myProvider.languageModel(selectedChatModel),
           system: `${systemPrompt({ selectedChatModel, requestHints })}
@@ -425,9 +445,11 @@ Research workflow completed but encountered issues during processing.
           messages: convertToModelMessages(uiMessages),
           stopWhen: stepCountIs(5),
           experimental_transform: smoothStream({ chunking: "word" }),
-          tools: needsResearchWorkflow ? {
-            createDocument: createDocument({ session, dataStream }),
-          } : {},
+          tools: needsResearchWorkflow
+            ? {
+                createDocument: createDocument({ session, dataStream }),
+              }
+            : {},
           experimental_telemetry: {
             isEnabled: isProductionEnvironment,
             functionId: "stream-text",

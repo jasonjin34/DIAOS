@@ -152,47 +152,53 @@ export function Chat({
 
   // Extract workflow ID and document ID from messages to start polling
   const getActiveResearchInfo = () => {
-    console.log('🔍 CHAT COMPONENT - Extracting research info from messages');
-    console.log('- Total Messages:', messages.length);
-    
+    console.log("🔍 CHAT COMPONENT - Extracting research info from messages");
+    console.log("- Total Messages:", messages.length);
+
     const lastMessage = messages[messages.length - 1];
-    console.log('- Last Message Role:', lastMessage?.role);
-    
-    if (lastMessage?.role === 'assistant') {
-      const content = lastMessage.parts?.[0]?.text || '';
-      console.log('- Message Content Length:', content.length);
-      console.log('- Content Preview:', content.substring(0, 200) + '...');
-      
+    console.log("- Last Message Role:", lastMessage?.role);
+
+    if (lastMessage?.role === "assistant") {
+      const firstPart = lastMessage.parts?.[0];
+      const content = firstPart && "text" in firstPart ? firstPart.text : "";
+      console.log("- Message Content Length:", content.length);
+      console.log("- Content Preview:", content.substring(0, 200) + "...");
+
       // Match workflow ID pattern in loading or completed message
-      const workflowMatch = content.match(/\*\*Workflow ID:\*\*\s*(research-\d+)/);
-      const documentMatch = content.match(/\*\*Document ID:\*\*\s*([a-f0-9-]{36})/);
-      
+      const workflowMatch = content.match(
+        /\*\*Workflow ID:\*\*\s*(research-\d+)/
+      );
+      const documentMatch = content.match(
+        /\*\*Document ID:\*\*\s*([a-f0-9-]{36})/
+      );
+
       const finalWorkflowId = workflowMatch?.[1];
       const finalDocumentId = documentMatch?.[1];
-      
-      console.log('- Workflow Match:', workflowMatch);
-      console.log('- Document Match:', documentMatch);
-      console.log('- Final Workflow ID:', finalWorkflowId);
-      console.log('- Final Document ID:', finalDocumentId);
-      
+
+      console.log("- Workflow Match:", workflowMatch);
+      console.log("- Document Match:", documentMatch);
+      console.log("- Final Workflow ID:", finalWorkflowId);
+      console.log("- Final Document ID:", finalDocumentId);
+
       const result = {
         workflowId: finalWorkflowId,
         documentId: finalDocumentId,
       };
-      
-      console.log('- Extracted Result:', result);
+
+      console.log("- Extracted Result:", result);
       return result;
     }
-    
-    console.log('- No assistant message found, returning null values');
+
+    console.log("- No assistant message found, returning null values");
     return { workflowId: null, documentId: null };
   };
 
-  const { workflowId: activeWorkflowId, documentId: activeDocumentId } = getActiveResearchInfo();
-  
-  console.log('💡 CHAT COMPONENT - Active research info:');
-  console.log('- Active Workflow ID:', activeWorkflowId);
-  console.log('- Active Document ID:', activeDocumentId);
+  const { workflowId: activeWorkflowId, documentId: activeDocumentId } =
+    getActiveResearchInfo();
+
+  console.log("💡 CHAT COMPONENT - Active research info:");
+  console.log("- Active Workflow ID:", activeWorkflowId);
+  console.log("- Active Document ID:", activeDocumentId);
 
   // Show activity monitor when research starts
   useEffect(() => {
@@ -200,12 +206,12 @@ export function Chat({
       setShowActivityMonitor(true);
     }
   }, [activeWorkflowId, showActivityMonitor]);
-  
+
   // Polling disabled - using blocking approach instead
-  console.log('🚫 CHAT COMPONENT - Polling disabled, using blocking approach');
-  console.log('- Active Workflow ID:', activeWorkflowId);
-  console.log('- Active Document ID:', activeDocumentId);
-  
+  console.log("🚫 CHAT COMPONENT - Polling disabled, using blocking approach");
+  console.log("- Active Workflow ID:", activeWorkflowId);
+  console.log("- Active Document ID:", activeDocumentId);
+
   // useResearchPolling({
   //   workflowId: activeWorkflowId || '',
   //   documentId: activeDocumentId || '',
@@ -250,12 +256,12 @@ export function Chat({
           {/* Research Activity Monitor - appears above chat input */}
           {activeWorkflowId && (
             <ResearchActivityMonitor
-              workflowId={activeWorkflowId}
               isVisible={showActivityMonitor}
               onClose={() => setShowActivityMonitor(false)}
+              workflowId={activeWorkflowId}
             />
           )}
-          
+
           {!isReadonly && (
             <MultimodalInput
               attachments={attachments}

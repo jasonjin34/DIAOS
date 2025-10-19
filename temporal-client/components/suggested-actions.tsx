@@ -2,7 +2,7 @@
 
 import type { UseChatHelpers } from "@ai-sdk/react";
 import { motion } from "framer-motion";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import type { ChatMessage } from "@/lib/types";
 import { Suggestion } from "./elements/suggestion";
 import type { VisibilityType } from "./visibility-selector";
@@ -14,15 +14,32 @@ type SuggestedActionsProps = {
 };
 
 function PureSuggestedActions({ chatId, sendMessage }: SuggestedActionsProps) {
+  const [isMounted, setIsMounted] = useState(false);
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const suggestedActions = [
     "Write code to demonstrate Dijkstra's algorithm",
     "Do comprehensive research on ResNet architecture and variants",
   ];
 
+  // Prevent hydration issues by only rendering after client mount
+  if (!isMounted) {
+    return (
+      <div
+        className="grid w-full gap-2 sm:grid-cols-2"
+        data-testid="suggested-actions"
+      />
+    );
+  }
+
   return (
     <div
       className="grid w-full gap-2 sm:grid-cols-2"
       data-testid="suggested-actions"
+      suppressHydrationWarning
     >
       {suggestedActions.map((suggestedAction, index) => (
         <motion.div
@@ -35,7 +52,9 @@ function PureSuggestedActions({ chatId, sendMessage }: SuggestedActionsProps) {
           <Suggestion
             className="h-auto w-full whitespace-normal p-3 text-left"
             onClick={(suggestion) => {
-              window.history.replaceState({}, "", `/chat/${chatId}`);
+              if (typeof window !== "undefined") {
+                window.history.replaceState({}, "", `/chat/${chatId}`);
+              }
               sendMessage({
                 role: "user",
                 parts: [{ type: "text", text: suggestion }],

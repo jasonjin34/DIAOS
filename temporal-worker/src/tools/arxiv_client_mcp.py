@@ -18,7 +18,7 @@ import arxiv
 # Imports needed for test patching compatibility
 import requests
 try:
-    from .citation_analyzer import extract_citations
+    from src.tools.citation_analyzer import extract_citations
 except ImportError:
     from citation_analyzer import extract_citations
 
@@ -866,7 +866,7 @@ async def arxiv_get_paper_metadata(args: Dict[str, Any]) -> Dict[str, Any]:
         if include_citations:
             # Import here to avoid circular imports
             try:
-                from .citation_analyzer import extract_citations
+                from src.tools.citation_analyzer import extract_citations
                 
                 # Try to extract citations from abstract
                 citation_result = await extract_citations({

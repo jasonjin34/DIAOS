@@ -19,51 +19,51 @@ async def _get_tool_handler(tool_name: str) -> Optional[Callable]:
     
     # Enhanced arXiv tools with MCP server
     if tool_name == "arxiv_search_papers":
-        from tools.arxiv_client_mcp import arxiv_search_papers
+        from src.tools.arxiv_client_mcp import arxiv_search_papers
         return arxiv_search_papers
     
     elif tool_name == "arxiv_download_paper":
-        from tools.arxiv_client_mcp import arxiv_download_paper
+        from src.tools.arxiv_client_mcp import arxiv_download_paper
         return arxiv_download_paper
     
     elif tool_name == "arxiv_list_papers":
-        from tools.arxiv_client_mcp import arxiv_list_papers
+        from src.tools.arxiv_client_mcp import arxiv_list_papers
         return arxiv_list_papers
     
     elif tool_name == "arxiv_read_paper":
-        from tools.arxiv_client_mcp import arxiv_read_paper
+        from src.tools.arxiv_client_mcp import arxiv_read_paper
         return arxiv_read_paper
     
     elif tool_name == "arxiv_get_metadata":
-        from tools.arxiv_client_mcp import arxiv_get_paper_metadata
+        from src.tools.arxiv_client_mcp import arxiv_get_paper_metadata
         return arxiv_get_paper_metadata
     
     elif tool_name == "arxiv_deep_analysis":
-        from tools.arxiv_client_mcp import arxiv_deep_analysis
+        from src.tools.arxiv_client_mcp import arxiv_deep_analysis
         return arxiv_deep_analysis
     
     elif tool_name == "extract_citations":
-        from tools.citation_analyzer import extract_citations
+        from src.tools.citation_analyzer import extract_citations
         return extract_citations
     
     elif tool_name == "analyze_citation_network":
-        from tools.citation_analyzer import analyze_citation_network
+        from src.tools.citation_analyzer import analyze_citation_network
         return analyze_citation_network
     
     elif tool_name == "process_pdf":
-        from tools.pdf_processor import process_pdf_content
+        from src.tools.pdf_processor import process_pdf_content
         return process_pdf_content
     
     elif tool_name == "extract_sections":
-        from tools.pdf_processor import extract_paper_sections
+        from src.tools.pdf_processor import extract_paper_sections
         return extract_paper_sections
     
     elif tool_name == "find_similar_papers":
-        from tools.semantic_search import find_similar_papers
+        from src.tools.semantic_search import find_similar_papers
         return find_similar_papers
     
     elif tool_name == "calculate_similarity":
-        from tools.semantic_search import calculate_paper_similarity
+        from src.tools.semantic_search import calculate_paper_similarity
         return calculate_paper_similarity
     
     else:

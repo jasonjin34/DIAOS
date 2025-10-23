@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrial-Grade Agent Orchestration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            --rwth-blue: #00549F;
+            --light-grey: #F5F7FA;
+            --dark-grey: #333333;
+            --alert-red: #C53030;
+            --accent-green: #28a745;
+        }
+        .slide {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .slide.active {
+            display: block;
+            opacity: 1;
+        }
+        .slide-container {
+            width: 100%;
+            max-width: 1024px;
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .title-bar {
+             border-bottom: 4px solid var(--rwth-blue);
+        }
+    </style>
+</head>
+<body class="bg-gray-200 flex flex-col items-center justify-center min-h-screen p-4">
+
+    <div id="presentation-container" class="slide-container bg-[var(--light-grey)] rounded-lg overflow-hidden flex flex-col">
+        <!-- Slides will be injected here by JS -->
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="mt-6 flex items-center space-x-4">
+        <button id="prevBtn" class="bg-white text-[var(--rwth-blue)] px-6 py-2 rounded-md shadow-md hover:bg-gray-100 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+            Previous
+        </button>
+        <span id="slideCounter" class="text-lg font-semibold text-[var(--dark-grey)] w-20 text-center"></span>
+        <button id="nextBtn" class="bg-[var(--rwth-blue)] text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-800 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+            Next
+        </button>
+    </div>
+
+    <!-- Slide Templates -->
+    <template id="slide1">
+        <div class="slide flex flex-col items-center justify-center text-center h-full bg-white p-12">
+            <div class="w-full h-full bg-[var(--rwth-blue)] text-white flex flex-col justify-center items-center rounded-md p-8">
+                 <h1 class="text-5xl font-bold leading-tight">Formalizing Durability and Verifiability in Autonomous Agent Systems</h1>
+                 <p class="mt-4 text-2xl text-blue-200">A Critique of Ad-Hoc Agent Architectures and a Proposal for a State-Centric Framework</p>
+                 <div class="mt-20 text-lg text-blue-300">
+                     <p>Your Name / Your Department</p>
+                     <p>RWTH Aachen University</p>
+                 </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="slide2">
+        <div class="slide flex flex-col h-full p-8 md:p-12">
+            <h2 class="text-3xl font-bold text-[var(--rwth-blue)] title-bar pb-2">State of the Art: Emergent Capability</h2>
+            <div class="flex-grow flex items-center justify-center mt-4">
+                <div class="text-center">
+                    <p class="text-2xl text-[var(--dark-grey)]">Current research demonstrates a significant leap in agent capabilities.</p>
+                    <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-lg">
+                        <div class="bg-white p-4 rounded-lg shadow"><b class="text-[var(--rwth-blue)]">Advanced Reasoning:</b> Large Language Models exhibit complex, multi-modal reasoning and tool use.</div>
+                        <div class="bg-white p-4 rounded-lg shadow"><b class="text-[var(--rwth-blue)]">Agentic Frameworks:</b> Systems like LangChain and Auto-GPT enable task decomposition and execution chaining.</div>
+                        <div class="bg-white p-4 rounded-lg shadow"><b class="text-[var(--rwth-blue)]">Empirical Evidence:</b> Demonstrations show agents capable of software development, scientific research, and complex interaction.</div>
+                    </div>
+                     <p class="mt-12 text-2xl text-red-700 font-semibold">However, these capabilities emerge from stochastic processes, posing a fundamental challenge to predictable, reliable deployment.</p>
+                </div>
+            </div>
+        </div>
+    </template>
+    
+    <template id="slide3">
+        <div class="slide flex flex-col h-full p-8 md:p-12">
+            <h2 class="text-3xl font-bold text-[var(--rwth-blue)] title-bar pb-2">The Chasm Between Capability and Reliability</h2>
+            <div class="flex-grow grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 items-center">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold bg-[var(--rwth-blue)] text-white -m-6 mb-6 p-4 rounded-t-lg text-center">The "In-Vitro" Success</h3>
+                    <ul class="space-y-3 text-lg text-[var(--dark-grey)]">
+                        <li class="flex items-start"><span class="text-[var(--accent-green)] mr-2">✔</span>High performance on well-defined, "happy path" benchmarks.</li>
+                        <li class="flex items-start"><span class="text-[var(--accent-green)] mr-2">✔</span>Demonstrates potential in a sandboxed, state-free environment.</li>
+                        <li class="flex items-start"><span class="text-[var(--accent-green)] mr-2">✔</span>Successfully showcases a specific reasoning chain.</li>
+                    </ul>
+                </div>
+                <div class="bg-red-100 border border-red-300 p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold bg-[var(--alert-red)] text-white -m-6 mb-6 p-4 rounded-t-lg text-center">The "In-Vivo" Failure Modes</h3>
+                     <ul class="space-y-2 text-lg text-[var(--dark-grey)]">
+                        <li class="flex items-start"><span class="text-[var(--alert-red)] mr-2">✖</span><b>No Fault Tolerance:</b> Lacks graceful degradation; a single API failure or unexpected input can cause total task failure.</li>
+                        <li class="flex items-start"><span class="text-[var(--alert-red)] mr-2">✖</span><b>No Transactional Integrity:</b> Volatile, in-memory state management leads to data loss and inconsistent states upon restart.</li>
+                        <li class="flex items-start"><span class="text-[var(--alert-red)] mr-2">✖</span><b>Insufficient Verifiability:</b> Stochastic nature makes behavior difficult to test, reproduce, and formally verify against specifications.</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-center mt-8 text-xl text-[var(--dark-grey)]">This gap is not an LLM problem; it is a systems architecture problem.</p>
+        </div>
+    </template>
+
+    <template id="slide4">
+        <div class="slide flex flex-col h-full p-8 md:p-12">
+            <h2 class="text-3xl font-bold text-[var(--rwth-blue)] title-bar pb-2">Formal Requirements for Mission-Critical Agentic Systems</h2>
+            <p class="mt-4 text-xl text-[var(--dark-grey)]">We must evaluate agentic systems against the same non-functional requirements as any enterprise-grade software.</p>
+            <div class="flex-grow grid grid-cols-2 lg:grid-cols-3 gap-6 mt-6 text-center">
+                <div class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-lg text-[var(--rwth-blue)]">Durability & Reliability</h3>
+                    <p class="text-sm mt-2">Quantifiable MTBF/MTTR through architectural fault tolerance, not just prompt-level retries.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-lg text-[var(--rwth-blue)]">Observability</h3>
+                    <p class="text-sm mt-2">High-fidelity, structured logging for state transition analysis and post-mortem forensics.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-lg text-[var(--rwth-blue)]">Verifiability</h3>
+                    <p class="text-sm mt-2">Deterministic, replayable integration tests and the ability to validate behavior against a formal specification.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-lg text-[var(--rwth-blue)]">Security</h3>
+                    <p class="text-sm mt-2">Hermetically sealed execution environments, principle of least privilege for tools, and robust input sanitization.</p>
+                </div>
+                 <div class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-lg text-[var(--rwth-blue)]">Scalability</h3>
+                    <p class="text-sm mt-2">A concurrency model that supports managing a fleet of agents via distributed task queues.</p>
+                </div>
+                 <div class="bg-white p-4 rounded-lg shadow-md flex flex-col items-center justify-center">
+                    <h3 class="font-bold text-lg text-[var(--rwth-blue)]">Governance & Auditability</h3>
+                    <p class="text-sm mt-2">Immutable versioning of prompts, models, and tools to ensure reproducibility and regulatory compliance.</p>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="slide5">
+        <div class="slide flex flex-col h-full p-8 md:p-12">
+            <h2 class="text-3xl font-bold text-[var(--rwth-blue)] title-bar pb-2">Proposed Architecture: State-Centric Orchestration (SCO)</h2>
+             <p class="mt-4 text-xl text-[var(--dark-grey)]">A framework that decouples agent logic from state management and execution control.</p>
+            <div class="flex-grow flex items-center justify-center mt-4">
+                 <div class="w-full max-w-4xl text-center">
+                    <div class="p-4 bg-blue-50 rounded-lg border-2 border-dashed border-blue-300">
+                        <h3 class="text-xl font-semibold text-blue-800">Orchestration Layer</h3>
+                        <p class="text-sm text-blue-600">A temporal logic-driven workflow manager. Defines what to do, when, and how to recover.</p>
+                    </div>
+                    <div class="text-xl my-1 text-blue-600">↕ <i class="text-xs">State Transaction API</i></div>
+                    <div class="p-4 bg-teal-50 rounded-lg border-2 border-dashed border-teal-300">
+                         <h3 class="text-xl font-semibold text-teal-800">Temporal State Layer</h3>
+                         <p class="text-sm text-teal-600">A transactional state store (e.g., PostgreSQL for state) and a content-addressable memory system (e.g., Vector DB for context).</p>
+                    </div>
+                    <div class="text-xl my-1 text-teal-600">↕ <i class="text-xs">Task Execution API</i></div>
+                    <div class="p-4 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300">
+                        <h3 class="text-xl font-semibold text-gray-800">Stateless Execution Layer</h3>
+                        <p class="text-sm text-gray-600">Hermetically sealed environments executing pure, stateless agent functions with injected state and tools.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="slide6">
+         <div class="slide flex flex-col h-full p-8 md:p-12">
+            <h2 class="text-3xl font-bold text-[var(--rwth-blue)] title-bar pb-2">The Orchestrator as a Formal System</h2>
+            <div class="flex-grow grid md:grid-cols-2 gap-8 items-center mt-4">
+                <div>
+                     <p class="text-xl text-[var(--dark-grey)]">We elevate task management from prompt chaining to a formal process model.</p>
+                     <ul class="mt-6 space-y-4 text-lg">
+                        <li class="flex"><b class="text-[var(--rwth-blue)] w-32 shrink-0">Formal Graphs:</b> Workflows are defined as Directed Acyclic Graphs (DAGs) or Petri Nets, enabling static analysis.</li>
+                        <li class="flex"><b class="text-[var(--rwth-blue)] w-32 shrink-0">Recovery Logic:</b> Failure is a first-class citizen. The orchestrator implements compensating transactions to roll back failed operations.</li>
+                        <li class="flex"><b class="text-[var(--rwth-blue)] w-32 shrink-0">Resource Mgmt:</b> Manages agent pools, tool access policies, and rate limiting.</li>
+                     </ul>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-md border">
+                    <p class="font-semibold text-center">Declarative Task Specification (YAML)</p>
+                    <pre class="mt-2 text-sm bg-gray-100 p-2 rounded">
+task: "ProcessInvoice"
+spec_version: 1.1
+steps:
+- id: "extract_data"
+  agent_function: "ocr_agent"
+  compensation: "delete_extracted_data"
+  on_failure:
+    policy: "exponential_backoff"
+    attempts: 3
+    escalate_to: "manual_review_queue"
+- id: "validate_po"
+  agent_function: "validation_agent"
+  input: steps.extract_data.output
+# ... etc
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="slide7">
+        <div class="slide flex flex-col h-full p-8 md:p-12">
+            <h2 class="text-3xl font-bold text-[var(--rwth-blue)] title-bar pb-2">Decoupling State from Execution</h2>
+             <p class="mt-4 text-xl text-[var(--dark-grey)]">This core principle ensures durability and transforms agent memory from a bug into a feature.</p>
+             <div class="flex-grow grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                <div class="bg-white p-6 rounded-lg shadow-md border">
+                    <h3 class="font-semibold text-lg text-center text-[var(--rwth-blue)] mb-4">Transactional State</h3>
+                    <p>We enforce ACID-like properties for agent operations. Before and after each step in a workflow, the agent's state is transactionally committed. The system guarantees atomicity, preventing corrupted or inconsistent states.</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md border">
+                    <h3 class="font-semibold text-lg text-center text-[var(--rwth-blue)] mb-4">Content-Addressable Memory</h3>
+                    <p>A Vector DB acts as a managed long-term memory. This provides a relevance feedback loop, but critically, the orchestrator controls when and how this memory is accessed to prevent context poisoning or retrieval of obsolete information.</p>
+                </div>
+             </div>
+        </div>
+    </template>
+
+    <template id="slide8">
+        <div class="slide flex flex-col h-full p-8 md:p-12">
+            <h2 class="text-3xl font-bold text-[var(--rwth-blue)] title-bar pb-2">Empirical Validation: A Resilient Supply Chain Scenario</h2>
+            <p class="mt-4 text-xl text-[var(--dark-grey)]">Analyzing the workflow with the SCO framework's primitives.</p>
+            <div class="flex-grow flex items-center justify-center mt-4">
+                <div class="text-center w-full">
+                    <div class="inline-block bg-green-100 p-3 rounded-lg border border-green-300"><b>Start:</b> New Order Received</div>
+                    <div class="h-8 w-px bg-gray-400 mx-auto"></div>
+                    <div class="inline-block bg-white p-3 rounded-lg shadow relative">Check Inventory DB <span class="absolute -bottom-4 text-xs text-blue-600">[State Read]</span></div>
+                    <div class="h-12 w-px bg-gray-400 mx-auto"></div>
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-300 relative">
+                        Call Supplier API <span class="absolute -bottom-4 text-xs text-blue-600">[Execution Layer]</span>
+                        <div class="flex justify-center my-6">
+                             <div class="w-1/3 text-center">
+                                <div class="text-green-600">↓ Success</div>
+                                <div class="h-4 w-px bg-gray-400 mx-auto"></div>
+                                <div class="inline-block bg-white p-2 rounded shadow w-full">Place Order</div>
+                             </div>
+                             <div class="w-1/3 text-center">
+                                <div class="text-red-600">↓ Failure</div>
+                                <div class="h-4 w-px bg-gray-400 mx-auto"></div>
+                                <div class="inline-block bg-red-100 p-2 rounded shadow w-full relative">Retry / Escalate <span class="absolute -bottom-4 text-xs text-blue-600">[Orchestrator Policy]</span></div>
+                             </div>
+                        </div>
+                    </div>
+                    <div class="h-12 w-px bg-gray-400 mx-auto"></div>
+                    <div class="inline-block bg-white p-3 rounded-lg shadow relative">Update State & Log Tx <span class="absolute -bottom-4 text-xs text-blue-600">[State Write]</span></div>
+                    <div class="h-12 w-px bg-gray-400 mx-auto"></div>
+                    <div class="inline-block bg-green-100 p-3 rounded-lg border border-green-300"><b>End:</b> Workflow Complete</div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="slide9">
+        <div class="slide flex flex-col h-full p-8 md:p-12">
+            <h2 class="text-3xl font-bold text-[var(--rwth-blue)] title-bar pb-2">Quantitative and Qualitative Gains Analysis</h2>
+            <div class="flex-grow mt-6">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b-2">
+                            <th class="p-2 text-lg">Metric</th>
+                            <th class="p-2 text-lg text-center bg-red-100 text-red-800">Ad-Hoc Agent</th>
+                            <th class="p-2 text-lg text-center bg-green-100 text-green-800">SCO-Framework Agent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b"><td class="p-3 font-semibold">Fault Tolerance</td><td class="p-3 text-center">Brittle, ad-hoc</td><td class="p-3 text-center font-bold">Architected, graceful degradation</td></tr>
+                        <tr class="border-b"><td class="p-3 font-semibold">State Integrity</td><td class="p-3 text-center">Volatile, in-memory</td><td class="p-3 text-center font-bold">Durable, transactional</td></tr>
+                        <tr class="border-b"><td class="p-3 font-semibold">Debuggability</td><td class="p-3 text-center">Opaque, print-based</td><td class="p-3 text-center font-bold">Transparent via structured logs</td></tr>
+                        <tr class="border-b"><td class="p-3 font-semibold">Determinism</td><td class="p-3 text-center">Stochastic</td><td class="p-3 text-center font-bold">Replayable, testable workflows</td></tr>
+                        <tr class="border-b"><td class="p-3 font-semibold">Concurrency Model</td><td class="p-3 text-center">Single-threaded process</td><td class="p-3 text-center font-bold">Managed, scalable via task queues</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+
+    <template id="slide10">
+        <div class="slide flex flex-col h-full p-8 md:p-12">
+            <h2 class="text-3xl font-bold text-[var(--rwth-blue)] title-bar pb-2">Conclusion & Avenues for Future Research</h2>
+             <div class="flex-grow grid md:grid-cols-2 gap-8 items-center mt-6">
+                 <div>
+                    <h3 class="text-2xl font-semibold text-[var(--dark-grey)]">The Future is Engineered</h3>
+                    <p class="mt-4 text-xl">The transition of agentic systems from academic curiosities to industrial platforms is contingent on a paradigm shift from prompt engineering to rigorous systems design. By prioritizing durability, verifiability, and observability, we can build the next generation of truly autonomous systems.</p>
+                     <div class="mt-12 text-center">
+                        <div class="inline-block bg-[var(--rwth-blue)] text-white px-12 py-4 rounded-lg text-3xl font-bold">
+                            Thank You
+                        </div>
+                    </div>
+                 </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md border">
+                    <h3 class="text-xl font-semibold text-center text-[var(--rwth-blue)] mb-4">Open Research Questions</h3>
+                    <ul class="space-y-4 text-base">
+                        <li class="flex items-start"><b class="mr-2 text-blue-600">1.</b> Formal methods for verifying the emergent behavior of multi-agent interactions within a stateful environment.</li>
+                        <li class="flex items-start"><b class="mr-2 text-blue-600">2.</b> Developing a theoretical framework for optimal human-in-the-loop escalation and correction paths.</li>
+                         <li class="flex items-start"><b class="mr-2 text-blue-600">3.</b> Quantifying the trade-offs between agent autonomy and system predictability under this framework.</li>
+                    </ul>
+                 </div>
+             </div>
+        </div>
+    </template>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const presentationContainer = document.getElementById('presentation-container');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const slideCounterEl = document.getElementById('slideCounter');
+            
+            const slideTemplates = [
+                document.getElementById('slide1'),
+                document.getElementById('slide2'),
+                document.getElementById('slide3'),
+                document.getElementById('slide4'),
+                document.getElementById('slide5'),
+                document.getElementById('slide6'),
+                document.getElementById('slide7'),
+                document.getElementById('slide8'),
+                document.getElementById('slide9'),
+                document.getElementById('slide10')
+            ];
+            
+            slideTemplates.forEach(template => {
+                presentationContainer.appendChild(template.content.cloneNode(true));
+            });
+
+            const slides = Array.from(presentationContainer.getElementsByClassName('slide'));
+            const totalSlides = slides.length;
+            let currentSlide = 0;
+
+            function updateSlide() {
+                slides.forEach((slide, index) => {
+                    slide.classList.toggle('active', index === currentSlide);
+                });
+                slideCounterEl.textContent = `${currentSlide + 1} / ${totalSlides}`;
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === totalSlides - 1;
+            }
+
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updateSlide();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlide();
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextBtn.click();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prevBtn.click();
+                }
+            });
+
+            updateSlide();
+        });
+    </script>
+</body>
+</html>

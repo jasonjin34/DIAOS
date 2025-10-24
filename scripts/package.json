@@ -1,0 +1,13 @@
+{
+  "name": "slides-to-ppt",
+  "version": "1.0.0",
+  "description": "Convert HTML slides to PowerPoint",
+  "scripts": {
+    "convert": "node slides-to-ppt.js"
+  },
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "pptxgenjs": "^3.12.0",
+    "puppeteer": "^22.0.0"
+  }
+}

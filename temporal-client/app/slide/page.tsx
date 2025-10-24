@@ -10,6 +10,7 @@ const slides = [
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800 mb-8 leading-tight">Building Reliable AI Research Assistants: A Durable Execution Approach</h1>
         <p className="text-2xl md:text-3xl lg:text-4xl" style={{color: '#00549f'}}>Orchestrating Multi-Agent Systems for Academic Literature Review</p>
         <p className="text-xl md:text-2xl text-gray-600 mt-8">RWTH Aachen University - Chair of Databases and Information Systems (i5)</p>
+        <p className="text-base md:text-lg text-gray-500 mt-4">Presenter: Jin, Er | jin@dbis.rwth-aachen.de</p>
       </div>
     )
   },
@@ -166,11 +167,11 @@ const slides = [
     id: 5,
     content: (
       <div className="slide-content">
-        <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-800">AI Agents: Promise vs. Reality</h2>
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
-          <div className="p-6 bg-green-50 rounded-lg border-l-4 border-green-600">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-gray-800">The Promise</h3>
-            <ul className="space-y-3 text-lg text-gray-700">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">AI Agents: Promise vs. Reality</h2>
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="p-5 bg-green-50 rounded-lg border-l-4 border-green-600">
+            <h3 className="text-xl md:text-2xl font-semibold mb-3 text-gray-800">The Promise</h3>
+            <ul className="space-y-2 text-base text-gray-700">
               <li className="flex items-start"><span className="text-green-600 mr-2">✓</span> Read & summarize papers automatically</li>
               <li className="flex items-start"><span className="text-green-600 mr-2">✓</span> Extract methodologies & compare</li>
               <li className="flex items-start"><span className="text-green-600 mr-2">✓</span> Map citation networks</li>
@@ -178,42 +179,42 @@ const slides = [
               <li className="flex items-start"><span className="text-green-600 mr-2">✓</span> <strong>Weeks → Days</strong></li>
             </ul>
           </div>
-          <div className="p-6 bg-red-50 rounded-lg border-l-4 border-red-400">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-gray-800">The Reality: Failure Modes</h3>
+          <div className="p-5 bg-red-50 rounded-lg border-l-4 border-red-400">
+            <h3 className="text-xl md:text-2xl font-semibold mb-3 text-gray-800">The Reality: Failure Modes</h3>
 
-            <div className="space-y-4">
-              <div className="bg-white p-4 rounded border-l-4 border-gray-400">
-                <p className="text-xl md:text-2xl font-bold text-gray-800 mb-2">1. State Loss</p>
-                <p className="text-lg md:text-xl text-gray-700"><strong>Replit Agent:</strong> Deleted production database during code freeze<sup style={{color: '#00549f'}}>53</sup></p>
-                <p className="text-base md:text-lg text-gray-600 italic mt-1">→ 1,200+ companies lost all data</p>
+            <div className="space-y-3">
+              <div className="bg-white p-3 rounded border-l-4 border-gray-400">
+                <p className="text-lg font-bold text-gray-800 mb-1">1. State Loss</p>
+                <p className="text-base text-gray-700"><strong>Replit Agent:</strong> Deleted production database during code freeze<sup style={{color: '#00549f'}}>53</sup></p>
+                <p className="text-sm text-gray-600 italic mt-1">→ 1,200+ companies lost all data</p>
               </div>
 
-              <div className="bg-white p-4 rounded border-l-4 border-gray-400">
-                <p className="text-xl md:text-2xl font-bold text-gray-800 mb-2">2. Hallucinations</p>
-                <p className="text-lg md:text-xl text-gray-700"><strong>Air Canada Chatbot:</strong> Invented fake bereavement policy<sup style={{color: '#00549f'}}>54</sup></p>
-                <p className="text-base md:text-lg text-gray-600 italic mt-1">→ Company held liable in court (Moffatt v. Air Canada)</p>
+              <div className="bg-white p-3 rounded border-l-4 border-gray-400">
+                <p className="text-lg font-bold text-gray-800 mb-1">2. Hallucinations</p>
+                <p className="text-base text-gray-700"><strong>Air Canada Chatbot:</strong> Invented fake bereavement policy<sup style={{color: '#00549f'}}>54</sup></p>
+                <p className="text-sm text-gray-600 italic mt-1">→ Company held liable in court (Moffatt v. Air Canada)</p>
               </div>
 
-              <div className="bg-white p-4 rounded border-l-4 border-gray-400">
-                <p className="text-xl md:text-2xl font-bold text-gray-800 mb-2">3. High Failure Rate</p>
-                <p className="text-lg md:text-xl text-gray-700"><strong>Carnegie Mellon "TheAgentCompany":</strong> Simulated company with AI employees<sup style={{color: '#00549f'}}>52</sup></p>
-                <p className="text-base md:text-lg text-gray-600 italic mt-1">→ Tasks: code reviews, data analysis, HR duties. GPT-4o: 91.4% failed</p>
+              <div className="bg-white p-3 rounded border-l-4 border-gray-400">
+                <p className="text-lg font-bold text-gray-800 mb-1">3. High Failure Rate</p>
+                <p className="text-base text-gray-700"><strong>Carnegie Mellon "TheAgentCompany":</strong> Simulated company with AI employees<sup style={{color: '#00549f'}}>52</sup></p>
+                <p className="text-sm text-gray-600 italic mt-1">→ Tasks: code reviews, data analysis, HR duties. GPT-4o: 91.4% failed</p>
               </div>
 
-              <div className="bg-white p-4 rounded border-l-4 border-gray-400">
-                <p className="text-xl md:text-2xl font-bold text-gray-800 mb-2">4. Production Viability</p>
-                <p className="text-lg md:text-xl text-gray-700"><strong>Gartner Prediction:</strong> 40% of agentic AI projects canceled by 2027<sup style={{color: '#00549f'}}>55</sup></p>
-                <p className="text-base md:text-lg text-gray-600 italic mt-1">→ Due to unclear business value & inadequate risk controls</p>
+              <div className="bg-white p-3 rounded border-l-4 border-gray-400">
+                <p className="text-lg font-bold text-gray-800 mb-1">4. Production Viability</p>
+                <p className="text-base text-gray-700"><strong>Gartner Prediction:</strong> 40% of agentic AI projects canceled by 2027<sup style={{color: '#00549f'}}>55</sup></p>
+                <p className="text-sm text-gray-600 italic mt-1">→ Due to unclear business value & inadequate risk controls</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="p-6 bg-white rounded-lg border-2 border-gray-300">
-          <p className="text-xl md:text-2xl font-semibold text-center text-gray-800">
+        <div className="p-5 bg-white rounded-lg border-2 border-gray-300">
+          <p className="text-lg md:text-xl font-semibold text-center text-gray-800">
             💡 Key Insight: This is NOT an AI problem — it's a <strong>systems reliability</strong> problem
           </p>
         </div>
-        <p className="text-base text-gray-500 mt-4">LLM hallucination and agent evaluation research<sup style={{color: '#00549f'}}>9,10,16,22</sup></p>
+        <p className="text-sm text-gray-500 mt-3">LLM hallucination and agent evaluation research<sup style={{color: '#00549f'}}>9,10,16,22</sup></p>
       </div>
     )
   },
@@ -221,13 +222,13 @@ const slides = [
     id: 6,
     content: (
       <div className="slide-content">
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800">How AI Agents Work: The MCP Architecture</h2>
-        <p className="text-xl md:text-2xl mb-6">Model Context Protocol (MCP): Anthropic's open standard for connecting AI agents to external systems<sup style={{color: '#00549f'}}>56</sup></p>
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">How AI Agents Work: The MCP Architecture</h2>
+        <p className="text-lg md:text-xl mb-5">Model Context Protocol (MCP): Anthropic's open standard for connecting AI agents to external systems<sup style={{color: '#00549f'}}>56</sup></p>
 
         {/* Agentic AI = Sophisticated For-Loop */}
-        <div className="p-6 bg-blue-50 rounded-lg border-l-4 border-blue-400 mb-6">
-          <h3 className="text-2xl md:text-3xl font-bold mb-3 text-gray-800">Mental Model: Agentic AI = Sophisticated For-Loop<sup style={{color: '#00549f'}}>3,57</sup></h3>
-          <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-base md:text-lg font-mono">
+        <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400 mb-5">
+          <h3 className="text-xl md:text-2xl font-bold mb-2 text-gray-800">Mental Model: Agentic AI = Sophisticated For-Loop<sup style={{color: '#00549f'}}>3,57</sup></h3>
+          <pre className="bg-gray-900 text-gray-100 p-3 rounded-lg overflow-x-auto text-sm md:text-base font-mono">
             <code>
               <span style={{color: '#c678dd'}}>while</span> <span style={{color: '#c678dd'}}>not</span> <span style={{color: '#61afef'}}>task_complete</span>:<br />
               {'    '}<span style={{color: '#61afef'}}>context</span> <span style={{color: '#abb2bf'}}>=</span> <span style={{color: '#61afef'}}>mcp</span>.<span style={{color: '#e5c07b'}}>get_resources</span>(){'      '}<span style={{color: '#5c6370'}}># Read data (Know)</span><br />
@@ -236,24 +237,24 @@ const slides = [
               {'    '}<span style={{color: '#61afef'}}>state</span>.<span style={{color: '#e5c07b'}}>update</span>(<span style={{color: '#61afef'}}>result</span>){'               '}<span style={{color: '#5c6370'}}># Update and loop</span>
             </code>
           </pre>
-          <p className="text-lg md:text-xl mt-3 text-gray-700 italic">→ Agents continuously loop: <strong>observe → decide → act → update</strong> (ReAct's "think-act-observe" cycle<sup style={{color: '#00549f'}}>3</sup>)</p>
+          <p className="text-base md:text-lg mt-2 text-gray-700 italic">→ Agents continuously loop: <strong>observe → decide → act → update</strong> (ReAct's "think-act-observe" cycle<sup style={{color: '#00549f'}}>3</sup>)</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
+        <div className="grid md:grid-cols-2 gap-5 mb-5">
           {/* Architecture */}
-          <div className="space-y-4">
-            <div className="p-6 bg-gray-50 rounded-lg border-2 border-gray-300">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">MCP Stack</h3>
-              <div className="space-y-3 text-lg md:text-xl">
-                <div className="p-3 bg-white rounded border border-gray-300">
+          <div className="space-y-3">
+            <div className="p-4 bg-gray-50 rounded-lg border-2 border-gray-300">
+              <h3 className="text-xl md:text-2xl font-bold mb-3 text-gray-800">MCP Stack</h3>
+              <div className="space-y-2 text-base md:text-lg">
+                <div className="p-2 bg-white rounded border border-gray-300">
                   <p><strong>MCP Host</strong> (Claude, AI IDE)</p>
                 </div>
-                <div className="text-center text-2xl text-gray-400">↓</div>
-                <div className="p-3 bg-white rounded border border-gray-300">
+                <div className="text-center text-xl text-gray-400">↓</div>
+                <div className="p-2 bg-white rounded border border-gray-300">
                   <p><strong>MCP Client</strong> (Connection manager)</p>
                 </div>
-                <div className="text-center text-2xl text-gray-400">↓</div>
-                <div className="p-3 bg-white rounded border border-gray-300">
+                <div className="text-center text-xl text-gray-400">↓</div>
+                <div className="p-2 bg-white rounded border border-gray-300">
                   <p><strong>MCP Server</strong> (APIs, databases, tools)</p>
                 </div>
               </div>
@@ -261,31 +262,31 @@ const slides = [
           </div>
 
           {/* 3 Essential Elements */}
-          <div className="space-y-3">
-            <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-              <h3 className="text-xl md:text-2xl font-bold mb-2 text-blue-900">1. Tools (Do)</h3>
-              <p className="text-lg md:text-xl">Execute actions in the loop</p>
-              <p className="text-base italic mt-1 text-blue-700">Example: Search arXiv, download PDF</p>
+          <div className="space-y-2">
+            <div className="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+              <h3 className="text-lg md:text-xl font-bold mb-1 text-blue-900">1. Tools (Do)</h3>
+              <p className="text-base md:text-lg">Execute actions in the loop</p>
+              <p className="text-sm italic mt-1 text-blue-700">Example: Search arXiv, download PDF</p>
             </div>
 
-            <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-              <h3 className="text-xl md:text-2xl font-bold mb-2 text-blue-900">2. Resources (Know)</h3>
-              <p className="text-lg md:text-xl">Data to inform decisions</p>
-              <p className="text-base italic mt-1 text-blue-700">Example: PDF contents, citations</p>
+            <div className="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+              <h3 className="text-lg md:text-xl font-bold mb-1 text-blue-900">2. Resources (Know)</h3>
+              <p className="text-base md:text-lg">Data to inform decisions</p>
+              <p className="text-sm italic mt-1 text-blue-700">Example: PDF contents, citations</p>
             </div>
 
-            <div className="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-              <h3 className="text-xl md:text-2xl font-bold mb-2 text-blue-900">3. Prompts (Guide)</h3>
-              <p className="text-lg md:text-xl">Templates for the loop logic</p>
-              <p className="text-base italic mt-1 text-blue-700">Example: "Analyze this paper for methods"</p>
+            <div className="p-3 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+              <h3 className="text-lg md:text-xl font-bold mb-1 text-blue-900">3. Prompts (Guide)</h3>
+              <p className="text-base md:text-lg">Templates for the loop logic</p>
+              <p className="text-sm italic mt-1 text-blue-700">Example: "Analyze this paper for methods"</p>
             </div>
           </div>
         </div>
 
         {/* Bottom: The Problem */}
-        <div className="p-5 bg-red-50 rounded-lg border-l-4 border-red-500">
-          <h3 className="text-2xl font-bold mb-2 text-red-800">But There's a Problem...</h3>
-          <p className="text-lg md:text-xl text-red-700">MCP handles <strong>connections</strong>, but NOT <strong>durability</strong>. When agents crash mid-loop, all state is lost — the entire loop must restart.<sup className="text-red-400">52,53</sup></p>
+        <div className="p-4 bg-red-50 rounded-lg border-l-4 border-red-500">
+          <h3 className="text-xl font-bold mb-2 text-red-800">But There's a Problem...</h3>
+          <p className="text-base md:text-lg text-red-700">MCP handles <strong>connections</strong>, but NOT <strong>durability</strong>. When agents crash mid-loop, all state is lost — the entire loop must restart.<sup className="text-red-400">52,53</sup></p>
         </div>
       </div>
     )
@@ -324,38 +325,38 @@ const slides = [
     id: 8,
     content: (
       <div className="slide-content">
-        <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-800">The Solution: Temporal Orchestration</h2>
-        <p className="text-xl md:text-2xl mb-6">We choose <strong>Temporal</strong> as our orchestration framework—an open-source durable execution platform designed for reliable distributed systems.<sup style={{color: '#00549f'}}>19,28</sup></p>
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">The Solution: Temporal Orchestration</h2>
+        <p className="text-lg md:text-xl mb-5">We choose <strong>Temporal</strong> as our orchestration framework—an open-source durable execution platform designed for reliable distributed systems.<sup style={{color: '#00549f'}}>19,28</sup></p>
 
-        <div className="mb-8 p-6 bg-gray-50 rounded-lg border-2 border-gray-300">
-          <h3 className="font-bold text-2xl md:text-3xl mb-4 text-gray-800">Why Temporal?</h3>
-          <div className="grid md:grid-cols-2 gap-3 text-lg md:text-xl">
-            <div className="flex items-start"><span className="text-green-600 mr-2 text-2xl">✓</span><span>Open-source & production-ready</span></div>
-            <div className="flex items-start"><span className="text-green-600 mr-2 text-2xl">✓</span><span>Easy to deploy (Docker/Cloud)</span></div>
-            <div className="flex items-start"><span className="text-green-600 mr-2 text-2xl">✓</span><span>Async support & distributed reliability</span></div>
-            <div className="flex items-start"><span className="text-green-600 mr-2 text-2xl">✓</span><span>Complete audit trail & debugging</span></div>
-            <div className="flex items-start"><span className="text-green-600 mr-2 text-2xl">✓</span><span>Rich ecosystem (Python, TS, Go SDKs)</span></div>
-            <div className="flex items-start"><span className="text-green-600 mr-2 text-2xl">✓</span><span>Durable execution guarantees</span></div>
+        <div className="mb-6 p-5 bg-gray-50 rounded-lg border-2 border-gray-300">
+          <h3 className="font-bold text-xl md:text-2xl mb-3 text-gray-800">Why Temporal?</h3>
+          <div className="grid md:grid-cols-2 gap-2 text-base md:text-lg">
+            <div className="flex items-start"><span className="text-green-600 mr-2 text-xl">✓</span><span>Open-source & production-ready</span></div>
+            <div className="flex items-start"><span className="text-green-600 mr-2 text-xl">✓</span><span>Easy to deploy (Docker/Cloud)</span></div>
+            <div className="flex items-start"><span className="text-green-600 mr-2 text-xl">✓</span><span>Async support & distributed reliability</span></div>
+            <div className="flex items-start"><span className="text-green-600 mr-2 text-xl">✓</span><span>Complete audit trail & debugging</span></div>
+            <div className="flex items-start"><span className="text-green-600 mr-2 text-xl">✓</span><span>Rich ecosystem (Python, TS, Go SDKs)</span></div>
+            <div className="flex items-start"><span className="text-green-600 mr-2 text-xl">✓</span><span>Durable execution guarantees</span></div>
           </div>
         </div>
 
-        <div className="mb-8 p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-          <h3 className="font-bold text-2xl md:text-3xl mb-3 text-blue-900">The Architecture Philosophy</h3>
-          <p className="text-lg md:text-xl text-blue-700"><strong>Humans design the workflow structure</strong> (the solid architectural foundation), while <strong>agents/LLMs serve as the brain</strong> deciding which tools to use for each task.<sup style={{color: '#00549f'}}>28,29</sup></p>
+        <div className="mb-6 p-5 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+          <h3 className="font-bold text-xl md:text-2xl mb-2 text-blue-900">The Architecture Philosophy</h3>
+          <p className="text-base md:text-lg text-blue-700"><strong>Humans design the workflow structure</strong> (the solid architectural foundation), while <strong>agents/LLMs serve as the brain</strong> deciding which tools to use for each task.<sup style={{color: '#00549f'}}>28,29</sup></p>
         </div>
 
-        <div className="space-y-4">
-          <div className="p-6 bg-green-50 rounded-lg border-l-4 border-green-500">
-            <h3 className="font-bold text-xl md:text-2xl text-green-900 mb-2">Deterministic Workflows</h3>
-            <p className="text-lg md:text-xl text-green-700">Human-designed orchestration logic—the "master plan" that coordinates the process.<sup className="text-green-600">29</sup></p>
+        <div className="space-y-3">
+          <div className="p-4 bg-green-50 rounded-lg border-l-4 border-green-500">
+            <h3 className="font-bold text-lg md:text-xl text-green-900 mb-1">Deterministic Workflows</h3>
+            <p className="text-base md:text-lg text-green-700">Human-designed orchestration logic—the "master plan" that coordinates the process.<sup className="text-green-600">29</sup></p>
           </div>
-          <div className="p-6 bg-amber-50 rounded-lg border-l-4 border-amber-500">
-            <h3 className="font-bold text-xl md:text-2xl text-amber-900 mb-2">Non-Deterministic Activities</h3>
-            <p className="text-lg md:text-xl text-amber-700">Agent brain decides which tools to execute—LLM calls, API requests, database queries.<sup className="text-amber-600">29</sup></p>
+          <div className="p-4 bg-amber-50 rounded-lg border-l-4 border-amber-500">
+            <h3 className="font-bold text-lg md:text-xl text-amber-900 mb-1">Non-Deterministic Activities</h3>
+            <p className="text-base md:text-lg text-amber-700">Agent brain decides which tools to execute—LLM calls, API requests, database queries.<sup className="text-amber-600">29</sup></p>
           </div>
-          <div className="p-6 bg-purple-50 rounded-lg border-l-4 border-purple-500">
-            <h3 className="font-bold text-xl md:text-2xl text-purple-900 mb-2">Durable State Persistence</h3>
-            <p className="text-lg md:text-xl text-purple-700">Temporal records every step as immutable events—crashes don't lose progress.<sup className="text-purple-600">19</sup></p>
+          <div className="p-4 bg-purple-50 rounded-lg border-l-4 border-purple-500">
+            <h3 className="font-bold text-lg md:text-xl text-purple-900 mb-1">Durable State Persistence</h3>
+            <p className="text-base md:text-lg text-purple-700">Temporal records every step as immutable events—crashes don't lose progress.<sup className="text-purple-600">19</sup></p>
           </div>
         </div>
       </div>
@@ -659,82 +660,45 @@ const slides = [
     id: 14,
     content: (
       <div className="slide-content">
-        <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-800">Discussion: Impact & Lessons Learned</h2>
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="p-6 bg-green-50 rounded-lg border-l-4 border-green-500">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-green-900">Impact for PhD Students</h3>
-            <ul className="space-y-3 text-lg md:text-xl text-green-800">
-              <li>• <strong>Trustworthy</strong> for thesis work</li>
-              <li>• Supervisor can <strong>audit</strong> process</li>
-              <li>• <strong>Reproducible</strong> reviews</li>
-              <li>• <strong>10x faster</strong> than manual (with oversight)</li>
-              <li>• Academic <strong>integrity</strong> maintained</li>
-            </ul>
-          </div>
-          <div className="p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-blue-900">Lessons Learned</h3>
-            <ul className="space-y-3 text-lg md:text-xl text-blue-800">
-              <li>• Event sourcing: ~5% overhead, 100% reliability</li>
-              <li>• HITL checkpoints essential for integrity</li>
-              <li>• Tool retry policies must be API-specific</li>
-              <li>• LLM reasoning ≠ retriable (use checkpoints)</li>
-            </ul>
-          </div>
-        </div>
-        <div className="p-6 bg-amber-50 rounded-lg border-l-4 border-amber-500">
-          <h3 className="text-2xl md:text-3xl font-semibold mb-3 text-amber-900">Limitations</h3>
-          <ul className="space-y-2 text-lg md:text-xl text-amber-800">
-            <li>• Requires Temporal infrastructure setup</li>
-            <li>• Learning curve for workflow programming (~1-2 days)</li>
-            <li>• LLM API costs scale with paper count (but still cheaper than human time)</li>
-          </ul>
-        </div>
-      </div>
-    )
-  },
-  {
-    id: 15,
-    content: (
-      <div className="slide-content">
-        <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-800">Key Takeaways & Implementation Insights</h2>
+        <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-800">Key Takeaways & Impact</h2>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-blue-900">Architecture Decisions</h3>
-            <ul className="space-y-3 text-lg md:text-xl text-blue-800">
-              <li><strong>Temporal</strong>: Durable execution for fault tolerance</li>
-              <li><strong>arXiv MCP</strong>: Direct API access to 2.4M papers</li>
-              <li><strong>GPT-4.1 mini</strong>: Smaller model, better reliability</li>
-              <li><strong>HITL checkpoints</strong>: Human validation at key stages</li>
-              <li><strong>Event sourcing</strong>: Complete audit trail</li>
-            </ul>
-          </div>
-
           <div className="p-6 bg-green-50 rounded-lg border-l-4 border-green-600">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-green-900">Real Performance Numbers</h3>
+            <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-green-900">Performance Results</h3>
             <ul className="space-y-3 text-lg md:text-xl text-green-800">
               <li><strong>5%</strong> hallucination vs 24-39% (GPT-5/Claude)</li>
               <li><strong>&lt;2%</strong> failure rate vs 15-20%</li>
               <li><strong>85%</strong> cost reduction vs GPT-5 Reasoning</li>
-              <li><strong>100 papers</strong> processed for PhD citations</li>
               <li><strong>10x faster</strong> than manual research</li>
+              <li><strong>100 papers</strong> processed for PhD citations</li>
+            </ul>
+          </div>
+
+          <div className="p-6 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-blue-900">Critical Insights</h3>
+            <ul className="space-y-3 text-lg md:text-xl text-blue-800">
+              <li>Event sourcing: <strong>~5% overhead → 100% reliability</strong></li>
+              <li>Architecture matters <strong>more than model size</strong></li>
+              <li>HITL checkpoints essential for academic integrity</li>
+              <li>Deterministic workflows + non-deterministic activities</li>
             </ul>
           </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="p-6 bg-amber-50 rounded-lg border-l-4 border-amber-600">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-amber-900">Critical Insights</h3>
-            <ul className="space-y-3 text-lg md:text-xl text-amber-800">
-              <li>Event sourcing: <strong>~5% overhead → 100% reliability</strong></li>
-              <li>Architecture matters <strong>more than model size</strong></li>
-              <li>Deterministic workflows + non-deterministic activities</li>
+          <div className="p-6 bg-purple-50 rounded-lg border-l-4 border-purple-600">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-purple-900">Impact for PhD Students</h3>
+            <ul className="space-y-3 text-lg md:text-xl text-purple-800">
+              <li><strong>Trustworthy</strong> for thesis work</li>
+              <li>Supervisor can <strong>audit</strong> complete process</li>
+              <li><strong>Reproducible</strong> and verifiable reviews</li>
+              <li>Academic <strong>integrity</strong> maintained</li>
             </ul>
           </div>
 
-          <div className="p-6 bg-red-50 rounded-lg border-l-4 border-red-600">
-            <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-red-900">Practical Limitations</h3>
-            <ul className="space-y-3 text-lg md:text-xl text-red-800">
+          <div className="p-6 bg-amber-50 rounded-lg border-l-4 border-amber-600">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-4 text-amber-900">Limitations</h3>
+            <ul className="space-y-3 text-lg md:text-xl text-amber-800">
               <li>Temporal infrastructure setup required</li>
               <li>1-2 day learning curve for workflow programming</li>
               <li>API costs scale with paper count (still cheaper than human)</li>

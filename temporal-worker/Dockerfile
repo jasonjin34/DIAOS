@@ -15,6 +15,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 ENV UV_COMPILE_BYTECODE=1
 ENV UV_LINK_MODE=copy
 ENV PYTHONPATH=/app
+ENV PATH="/root/.local/bin:$PATH"
 
 # Set working directory
 WORKDIR /app
@@ -30,6 +31,9 @@ COPY src/ ./src/
 
 # Install package in editable mode
 RUN uv pip install -e .
+
+# Install arxiv-mcp-server tool
+RUN uv tool install arxiv-mcp-server
 
 # Create non-root user
 RUN useradd --create-home --shell /bin/bash worker

@@ -129,17 +129,23 @@ Consider:
     user_prompt = f"""Current Research Context:
 {json.dumps(research_context, indent=2, default=str)}
 
-Based on this context, what should be the next action? 
+Based on this context, what should be the next action?
 
-If recommending a tool, provide specific tool arguments. Use the ACTUAL research query from the context above in your search terms.
+CRITICAL SEARCH GUIDELINES:
+1. For the FIRST search, use the EXACT query terms: "{research_context.get('query', '').replace('deep research on ', '').replace('research on ', '')}"
+2. Do NOT add assumed context (like "advertising", "machine learning", etc.) unless explicitly in the original query
+3. Keep search queries simple and direct - the original term alone often works best
+4. Only expand search terms AFTER initial results show the topic area
 
-For the current research query "{research_context.get('query', '')}", appropriate tool examples would be:
-- arxiv_search_papers: {{"query": "{research_context.get('query', '')}", "max_results": 10}}
+For the current research query "{research_context.get('query', '')}", your FIRST search should be:
+- arxiv_search_papers: {{"query": "{research_context.get('query', '').replace('deep research on ', '').replace('research on ', '')}", "max_results": 10}}
+
+Other tool examples:
 - extract_sections: {{"paper_text": "full paper content here"}}
 - extract_citations: {{"paper_text": "paper content with citations"}}
 - process_pdf: {{"pdf_url": "https://arxiv.org/pdf/1234.5678.pdf"}}
 
-IMPORTANT: Always use the actual research query terms, not generic examples. Ensure all required arguments are provided for your chosen tool."""
+IMPORTANT: Use exact search terms first. Do not assume what the topic is about. Ensure all required arguments are provided."""
 
     try:
         openai_client = _get_openai_client()

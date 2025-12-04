@@ -9,8 +9,8 @@ const slides = [
       <div className="slide-content text-center">
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-800 mb-8 leading-tight">Building Reliable AI Research Assistants: A Durable Execution Approach</h1>
         <p className="text-2xl md:text-3xl lg:text-4xl" style={{color: '#00549f'}}>Orchestrating Multi-Agent Systems for Academic Literature Review</p>
-        <p className="text-xl md:text-2xl text-gray-600 mt-8">RWTH Aachen University - Chair of Databases and Information Systems (i5)</p>
-        <p className="text-base md:text-lg text-gray-500 mt-4">Presenter: Jin, Er | jin@dbis.rwth-aachen.de</p>
+        <p className="text-xl md:text-2xl text-gray-600 mt-8">Heinrich Heine Universität Düsseldorf - Lehrstuhl für Machine Learning for Medical Data</p>
+        <p className="text-base md:text-lg text-gray-500 mt-4">Presenter: Jin, Er | jin.er@hhu.de</p>
       </div>
     )
   },
@@ -860,12 +860,12 @@ export default function PresentationPage() {
               </div>
             </div>
 
-            {/* RWTH Logo - Bottom Right */}
+            {/* HHU Logo - Bottom Right */}
             <div className="absolute bottom-4 right-4 md:bottom-8 md:right-8">
               <img
-                src="/presentation/rwth_i5_en_rgb.svg"
-                alt="RWTH Aachen University"
-                className="w-48 md:w-56 lg:w-64 opacity-90"
+                src="/presentation/hhu.png"
+                alt="Heinrich Heine Universität Düsseldorf"
+                className="w-32 md:w-40 lg:w-48 opacity-90"
               />
             </div>
           </div>
